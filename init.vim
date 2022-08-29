@@ -24,14 +24,14 @@ require("null-ls").setup({
     },
 })
 
-require('alpha').setup(require('alpha.themes.dashboard').config)
+require('lspconfig').angularls.setup{}
 
 require('nvim-tree').setup()
 
 require("which-key").setup({})
 
 require("toggleterm").setup({
-  open_mapping = [[<leader>tz]],
+  open_mapping = [[<C-\>]],
   hide_numbers = true,
   shade_filetypes = {},
   start_in_insert = true,
@@ -51,15 +51,44 @@ require("toggleterm").setup({
 EOF
 
 let g:toggleterm_terminal_mapping = '<C-t>'
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-angular']
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Mouse support
+set mouse=a
 
-" change the leader key from "\" to ";" ("," is also popular)
-let mapleader=";"
+" Highlight search results
+set hlsearch
+set incsearch
+
+" auto + smart indent for code
+set autoindent
+set smartindent
+
+" Position in code
+set number
+set ruler
+
+syntax on
+
+" Don't make noise
+set visualbell
+
+" Line wrap
+set wrap
+
+" change the leader key from "\" to ","
+let mapleader=","
+
+" Remap C-c to <esc>
+nmap <c-c> <esc>
+imap <c-c> <esc>
+vmap <c-c> <esc>
+omap <c-c> <esc>
 
 " Shortcut to edit THIS configuration file: (e)dit (c)onfiguration
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
@@ -67,9 +96,9 @@ nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
 " Shortcut to source (reload) THIS configuration file after editing it: (s)ource (c)onfiguraiton
 nnoremap <silent> <leader>sc :source $MYVIMRC<CR>
 
-" use ;; for escape
+" use jk for escape
 " http://vim.wikia.com/wiki/Avoid_the_escape_key
-inoremap ;; <Esc>
+inoremap jk <Esc>
 
 " toggle tagbar
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
@@ -157,3 +186,28 @@ nnoremap <C-f> :NERDTreeFind<CR>
 
 noremap <Leader>s :update<CR>
 
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" add cocstatus into lightline
+let g:lightline = {
+	\ 'colorscheme': 'rosepine',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+	\ },
+	\ 'component_function': {
+	\   'cocstatus': 'coc#status'
+	\ },
+	\ }
+
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

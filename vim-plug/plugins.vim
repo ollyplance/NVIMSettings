@@ -16,7 +16,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     " Rose-pine
     Plug 'rose-pine/neovim'
-    Plug 'nvim-lualine/lualine.nvim'
+    Plug 'itchyny/lightline.vim'
     " If you want to have icons in your statusline choose one of these
     Plug 'kyazdani42/nvim-web-devicons'
     "Telescope
@@ -35,16 +35,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'akinsho/toggleterm.nvim'
     " lspconfig
     Plug 'neovim/nvim-lspconfig'
-    "alpha-config
-    Plug 'goolord/alpha-nvim'
     "file view
     Plug 'kyazdani42/nvim-web-devicons' 
     " for file icons
     Plug 'kyazdani42/nvim-tree.lua'
     " for key support
     Plug 'folke/which-key.nvim'
-    
-
+    " CTags
+    Plug 'universal-ctags/ctags'
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 "Config section
