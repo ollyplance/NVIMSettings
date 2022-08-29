@@ -33,11 +33,12 @@ require("which-key").setup({})
 require("toggleterm").setup({
   open_mapping = [[<C-\>]],
   hide_numbers = true,
+	size = 10,
   shade_filetypes = {},
   start_in_insert = true,
   terminal_mappings = true, 
   persist_size = true,
-  direction = 'float',
+  direction = 'horizontal',
   close_on_exit = true,
   float_opts = {
     border = 'double',
@@ -189,6 +190,9 @@ noremap <Leader>s :update<CR>
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
+" Find the current buffer in NerdTree
+map <leader>r :NERDTreeFind<cr>
+
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
@@ -211,3 +215,15 @@ let g:lightline = {
 	\ }
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+let g:startify_custom_header = [
+\ '',
+\ '                       __         _    _        _    _      _         _      ',
+\ '                      / /    ___ | |_ ( ) ___  | |_ | |__  (_) _ __  | | __  ',
+\ '                     / /    / _ \| __||/ / __| | __|| |_ \ | || |_ \ | |/ /  ',
+\ '                    / /___ |  __/| |_    \__ \ | |_ | | | || || | | ||   <   ',
+\ '                    \____/  \___| \__|   |___/  \__||_| |_||_||_| |_||_|\_\  ',
+\ '                                                                             ',
+\ '                                 [ ThinkVim   Author:taigacute ]             ',
+\ '',
+\]

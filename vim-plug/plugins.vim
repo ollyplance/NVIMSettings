@@ -44,6 +44,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " CTags
     Plug 'universal-ctags/ctags'
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    " Start screen
+    Plug 'mhinz/vim-startify'    
 call plug#end()
 
 "Config section
