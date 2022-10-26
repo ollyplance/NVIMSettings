@@ -1,20 +1,19 @@
 source $HOME/.config/nvim/vim-plug/plugins.vim
 
 lua << EOF
-require('lualine').setup({
-    options = {
-        ---@usage 'rose-pine' | 'rose-pine-alt'
-        theme = 'rose-pine'
-    }
-})
 
-require("trouble").setup {
--- your configuration comes here
--- or leave it empty to use the default settings
--- refer to the configuration section below
-}
+require("trouble").setup {}
 
 require('gitsigns').setup()
+
+require('Comment').setup()
+
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = { "c", "cpp", "html", "javascript", "typescript", "css", "scss"},
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+}
 
 require("null-ls").setup({
     sources = {
@@ -52,7 +51,7 @@ require("toggleterm").setup({
 EOF
 
 let g:toggleterm_terminal_mapping = '<C-t>'
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-angular']
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-scssmodules', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-angular']
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -61,6 +60,8 @@ noremap <Right> <NOP>
 
 " Mouse support
 set mouse=a
+
+set updatetime=300
 
 " Highlight search results
 set hlsearch
@@ -82,8 +83,30 @@ set visualbell
 " Line wrap
 set wrap
 
-" change the leader key from "\" to ","
-let mapleader=","
+" Relative line numbers
+:set relativenumber
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " Remap C-c to <esc>
 nmap <c-c> <esc>
@@ -190,6 +213,9 @@ noremap <Leader>s :update<CR>
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
+" Add `:Prettier' to format with Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " Find the current buffer in NerdTree
 map <leader>r :NERDTreeFind<cr>
 
@@ -216,6 +242,7 @@ let g:lightline = {
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
+let g:import_sort_auto = 1
 let g:startify_custom_header = [
 \ '',
 \ '			  ▒█████   ██▓     ██▓ ██▒   █▓▓█████  ██▀███      ██▓    ▄▄▄       ███▄    █  ▄████▄  ▓█████    ',

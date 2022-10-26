@@ -7,15 +7,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
+    " Auto-Pairs
+    Plug 'LunarWatcher/auto-pairs'
     " Better Syntax Support
     Plug 'sheerun/vim-polyglot'
     " File Explorer
     Plug 'preservim/nerdtree'
-    " Auto pairs for '(' '[' '{'
-    Plug 'jiangmiao/auto-pairs'
-    " Rose-pine
-    Plug 'rose-pine/neovim'
     Plug 'itchyny/lightline.vim'
     " If you want to have icons in your statusline choose one of these
     Plug 'kyazdani42/nvim-web-devicons'
@@ -45,7 +42,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'universal-ctags/ctags'
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     " Start screen
-    Plug 'mhinz/vim-startify'    
+    Plug 'mhinz/vim-startify'
+    " Comments
+    Plug 'numToStr/Comment.nvim'
+    " Work with import-sort
+    Plug 'ruanyl/vim-sort-imports'
 call plug#end()
 
 "Config section
